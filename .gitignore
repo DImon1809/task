@@ -1,0 +1,21 @@
+# compiled output
+/dist
+/node_modules
+
+# environment
+.env
+.env.local
+
+# coverage
+/coverage
+
+# prisma
+prisma/migrations
+
+# logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db

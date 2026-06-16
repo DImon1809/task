@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model UserPreference {
+  id               String   @id @default(uuid())
+  userId           String
+  notificationType String
+  channel          String
+  enabled          Boolean
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@unique([userId, notificationType, channel])
+  @@map("user_preferences")
+}
+
+model QuietHours {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  startTime String
+  endTime   String
+  timezone  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("quiet_hours")
+}
+
+model DefaultPreference {
+  id               String  @id @default(uuid())
+  notificationType String
+  channel          String
+  enabled          Boolean
+
+  @@unique([notificationType, channel])
+  @@map("default_preferences")
+}
+
+model GlobalPolicy {
+  id               String   @id @default(uuid())
+  notificationType String
+  region           String
+  enabled          Boolean
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@unique([notificationType, region])
+  @@map("global_policies")
+}
